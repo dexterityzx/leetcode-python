@@ -15,8 +15,8 @@ nums2 = [3, 4]
 The median is (2 + 3)/2 = 2.5
 '''
 
-nums1 = [1,2,3,4,5,6,89,112]
-nums2 = [4,6,7,8,9]
+nums1 = [1,2,3,4]
+nums2 = [2.1,3.1,4.1]
 
 def findMedianSortedArrays(nums1, nums2):
     """
@@ -24,25 +24,27 @@ def findMedianSortedArrays(nums1, nums2):
     :type nums2: List[int]
     :rtype: float
     """
-    # l = len(nums1) if len(nums1)>len(nums2) else len(nums2)
-    if nums1[-1]<=nums2[0]:
-        nums = nums1 + nums2
-        return getMidian(nums)
-    elif nums2[-1]<=nums1[0]:
-        nums = nums2 + nums1
-        return getMidian(nums)
+    if len(nums1) == 0 or len(nums2) == 0:
+    	return getMidian(nums1+nums2)
     # find nums1[0]'s location in nums2
     _idx = binSearch(nums2,nums1[0])
-    n2_idx = _idx
-    tmp_nums = list()
-    for n1_idx in range(len(nums1)):
-        while n2_idx<len(nums2) and nums2[n2_idx]<nums1[n1_idx]:
-            tmp_nums.append(nums2[n2_idx])
-            n2_idx += 1
-        tmp_nums.append(nums1[n1_idx])
-    final_nums = nums2[:_idx] + tmp_nums
+    mergedList = mergeList(nums1,nums2[_idx:])
+    final_nums = nums2[:_idx] + mergedList
     print final_nums
     return getMidian(final_nums)
+
+def mergeList(nums1,nums2):
+	mergedList = list()
+	n2_idx = 0
+	for n1_idx in range(len(nums1)):
+		while n2_idx<len(nums2) and nums2[n2_idx]<nums1[n1_idx]:
+			mergedList.append(nums2[n2_idx])
+			n2_idx += 1
+		mergedList.append(nums1[n1_idx])
+	while n2_idx<len(nums2) :
+		mergedList.append(nums2[n2_idx])
+		n2_idx += 1
+	return mergedList   
 
 def getMidian(nums):
     if len(nums) == 0:
