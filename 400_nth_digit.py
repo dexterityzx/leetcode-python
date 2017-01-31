@@ -32,7 +32,8 @@ The 11th digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... is a 0, wh
 
 def findNthDigit(n):
 
-	# n = 1*(10^1-10^0) + 2*(10^2-10^1) + ... + m*(10^m-10^(m-1)) + 1 + k 
+	# n = 1*(10^1-10^0) + 2*(10^2-10^1) + ... + m*(10^m-10^(m-1)) + 1 + k
+
 	m = 0
 	while n > 0 :
 		m += 1
@@ -45,7 +46,7 @@ def findNthDigit(n):
 	target_digit = k%m
 	return int(str(target_num)[target_digit])
 
-print findNthDigit(17)
+print findNthDigit(1)
 
 
 
